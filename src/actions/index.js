@@ -5,3 +5,10 @@ export const tryLog = (user, pass) => {
         password: pass
     }
 }
+
+export const stor = (data) => {
+    return{
+        type: 'STORE',
+        data
+    }
+}

@@ -1,21 +1,20 @@
 import React from 'react';
 import {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {tryLog} from './actions';
+import {tryLog, stor} from './actions';
 
 function LoginPage(){
     const [user, setUser] = useState('')
     const [pw, setPw] = useState('')
     const shell = []
-    const [data, setData] = useState(shell)
-    fetch('./dat/userA.json').then(res=>res.json()).then((dat) =>{
-        shell[0] = dat
-        console.log('reached here')
-        setData(shell)
-    })
-    console.log(data)
     const dispatch = useDispatch()
+    fetch('./dat/userA.json').then(res=>res.json()).then((dat) =>{  //need a live server for this to work
+        console.log('reached here')
+        dispatch(stor(dat))
+    })
+    const datstate = useSelector(state => state.userData)
     const acc = useSelector(state => state.isLogged)
+    console.log(datstate)
     return (
     <div className="App">
     <label htmlFor="user">Username: </label>
