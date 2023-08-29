@@ -1,14 +1,5 @@
-export const tryLog = (user, pass) => {
+export const tryLog = () => {
     return{
-        type: 'LOGIN',
-        username: user,
-        password: pass
-    }
-}
-
-export const stor = (data) => {
-    return{
-        type: 'STORE',
-        data
+        type: 'LOGIN'
     }
 }
