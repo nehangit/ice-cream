@@ -1,5 +1,5 @@
 export const tryLog = () => {
     return{
-        type: 'LOGIN'
+        type: 'LOGIN' //add username here
     }
 }

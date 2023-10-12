@@ -1,6 +1,6 @@
 # Getting Started with Create React App and Redux
 
-Building a simple web application
+Building a simple web application to login users with credentials from a JSON file, manipulate and save user specific data, all on the frontend using Redux global states (changes reset on page reload).
 
 ## Available Scripts
 

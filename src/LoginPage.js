@@ -2,7 +2,7 @@ import React from 'react';
 import {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {tryLog} from './actions';
-import useFetch from './useFetch.js';
+import jsondat from "./dat/users.json";
 
 function LoginPage(){
     const [user, setUser] = useState('')
@@ -11,17 +11,32 @@ function LoginPage(){
     const dispatch = useDispatch()
     const acc = useSelector(state => state.isLogged)
     
-    let getdat = useFetch("./dat/" + user.toString() + ".json")
-    if(getdat == null){
-        console.log("Invalid username")
-    }
-    else{
-        console.log(getdat) //continue working here, setAccess(true)
-    }
+    useEffect(()=>{
+        for(let x in jsondat.users){
+            if(jsondat.users[x].username == user){
+                if(jsondat.users[x].password == pw){
+                    setAccess(true)
+                    break
+                }
+                else{
+                    setAccess(false)
+                }
+            }
+            else{
+                setAccess(false)
+            }
+        }
+        console.log(access)
+    }, [user, pw])
+    
+    
 
     function helper(granted){
         if(granted == true){
             dispatch(tryLog())
+        }
+        else{
+            //setInvalidLogin(true) new state
         }
     }
 
@@ -36,7 +51,7 @@ function LoginPage(){
     <br></br>
     <input type="password" id="pass" onChange={(e)=>setPw(e.target.value)}></input>
     <br></br>
-    <button onClick={helper(access)}>Login</button>
+    <button onClick={() => helper(access)}>Login</button>
     {acc ? <p>Welcome {user}</p> : ''}
     </div>
   );
