@@ -15,3 +15,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+#bad-log-message {
+  color: rgb(199, 31, 31)
+}

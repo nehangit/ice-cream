@@ -1,5 +1,6 @@
+// maybe delete this reducer and use userLog instead
 const isLogged = (state=false, action)=> {
-    if(action.type == 'LOGIN'){ //action.password
+    if(action.type == 'LOGIN'){
         return true
     }
     else if(action.type == 'LOGOUT'){
