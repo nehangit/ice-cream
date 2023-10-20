@@ -11,7 +11,7 @@ function LoginPage(){
     const [invalidLogin, setInvalidLogin] = useState(false)
     const dispatch = useDispatch()
     
-    useEffect(()=>{
+    useEffect(()=>{  //change to initialize the data state with all data and compare from there..
         for(let x of jsondat.users){
             if(x.username == user){
                 if(x.password == pw){

@@ -1,24 +1,28 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {tryLogout} from './actions'
+import {tryLogout, changeOrder} from './actions'
 
-function Entries(props){
+function Entries({buttonClicked}){
     const user = useSelector(state => state.currentUser)
+    const order = useSelector(state => state.icecreamOrder)
     const [resp, setResp] = useState('')
 
     useEffect(() => {
     displayValues()
-    }, [props.order])
+    }, [order])
 
     function displayValues(){
     var entrylist = []
-    let l = Object.keys(props.order[user]).length
+    let l = Object.keys(order[user]).length
     for(var i = 1; i <= l; i++){
-        for(let flavor in props.order[user]){
-            if(i == props.order[user][flavor][0]){
+        for(let flavor in order[user]){
+            if(i == order[user][flavor][0]){
                 entrylist.push(
-                    <p>{i}: {flavor} - {props.order[user][flavor][1]}</p>
+                    <div className='Home'>
+                    <input type='radio' name='ord' value={i} onClick={(e) => buttonClicked(e.target.value)}></input>
+                    <p>{i}: {flavor} - {order[user][flavor][1]}</p>
+                    </div>
                 )
             }
         }
@@ -26,25 +30,26 @@ function Entries(props){
     setResp(entrylist)
     }
 
-    //add a use state and use effect to return the values in the "table" based on updates to props.order
     return resp
 }
 
 
 function HomePage(){
     const user = useSelector(state => state.currentUser)
-    const orders = useSelector(state => state.icecreamOrder)
+    const [selection, setSelection] = useState('')
     const dispatch = useDispatch()
 
-    function logout(){
-        dispatch(tryLogout())
-    }
-    //add functions and actions to update data
+    //add components and actions to update text
     return (
-        <div>
-        <p>Welcome {user}</p>
-        <Entries order={orders}></Entries>
-        <button onClick={() => logout()}>Logout</button>
+        <div className='App'>
+            <p>Welcome {user}</p>
+            <Entries buttonClicked={setSelection}></Entries>
+            <br></br>
+            <div className='Home'>
+                <button onClick={() => dispatch(tryLogout())}>Logout</button>
+                <button onClick={() => dispatch(changeOrder(selection, 'UP', user))}>UP</button> 
+                <button onClick={() => dispatch(changeOrder(selection, 'DOWN', user))}>DOWN</button>
+            </div>
         </div>
     )
 }

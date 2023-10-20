@@ -27,3 +27,12 @@ export const tryLogout = () => {
         type: 'LOGOUT'
     }
 }
+
+export const changeOrder = (selection, button, username) => {
+    return{
+        type: 'CHORDER',
+        option: selection,
+        act: button,
+        user: username
+    }
+}
